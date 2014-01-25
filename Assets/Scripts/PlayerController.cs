@@ -80,7 +80,8 @@ public class PlayerController : MonoBehaviour {
 			//TODO - This logic only works because the quad is centered on origin (0,0)
 			playerBoundary.xMin = levelObject.transform.lossyScale.x/2*-1 + BoundaryBuffer;
 			playerBoundary.xMax = levelObject.transform.lossyScale.x/2 - BoundaryBuffer;
-			playerBoundary.zMin = levelObject.transform.lossyScale.y/2*-1 + BoundaryBuffer + levelObject.transform.position.z;
+			//Player can't move back to areas south beyond the camera.
+			playerBoundary.zMin = yStop - Camera.main.orthographicSize + BoundaryBuffer;//levelObject.transform.lossyScale.y/2*-1 + BoundaryBuffer + levelObject.transform.position.z;
 			playerBoundary.zMax = levelObject.transform.lossyScale.y/2 - BoundaryBuffer + levelObject.transform.position.z;
 //			playerBoundary.zMin = levelObject.transform.lossyScale.y/2*-1 + BoundaryBuffer;
 //			playerBoundary.zMax = levelObject.transform.lossyScale.y/2 - BoundaryBuffer;
@@ -112,7 +113,9 @@ public class PlayerController : MonoBehaviour {
 			
 			cameraBoundary.xMin = ((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
 			cameraBoundary.xMax = ((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
-			cameraBoundary.zMin = 4;//((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;
+
+			// Calmera no longer moves backwards. Player can move back a bit, but they can't go south beyond camera.
+			cameraBoundary.zMin = yStop;//((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;
 			cameraBoundary.zMax = 1000;//((levelObject.transform.lossyScale.y/2) + (Camera.main.orthographicSize/2)) * CameraBorder;
 			
 //			cameraBoundary.xMin = -1;
