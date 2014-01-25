@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: a034586de4de54df69df6d6702f50fa7
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - debugText: {instanceID: 0}
+  - axeSwing: {fileID: 100002, guid: 5679113d82f0c4b3a82e6f9067d293af, type: 2}
+  - axeSpawn: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
