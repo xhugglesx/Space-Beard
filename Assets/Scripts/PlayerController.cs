@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour {
 
 //		GenerateLevel ();
 		RenderLevel ();
+
+		//Camera.main.orthographicSize = 50f;
 	}
 
 //	This would have been great, but not goint to happen
@@ -92,19 +94,24 @@ public class PlayerController : MonoBehaviour {
 //
 //		}
 	
-		float xBase = -32.05f;
+		float xBase = -24.05f;
 		float yBase = -2.05f;
 		float xIncrement = 5.905f;
 		float yIncrement = 5.905f;
 	
 		//HARD CODE EVERYTHING
 
-		float y = yBase;
-		BuildRow (xBase, xIncrement, y, Concave_Down_Left, null, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, null, Concave_Down_Right);
-		y += yIncrement;
-		y += yIncrement;
-		BuildRow (xBase, xIncrement, y, Wall_Normal_Left, null, null, null, null, null, null, null, Wall_Normal_Right);
+//		float y = yBase;
+//		BuildRow (xBase, xIncrement, y, Concave_Down_Left, null, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, null, Concave_Down_Right);
 //		y += yIncrement;
+//		y += yIncrement;
+//		BuildRow (xBase, xIncrement, y, Wall_Normal_Left, null, null, null, null, null, null, null, Wall_Normal_Right);
+//		y += yIncrement;
+//		BuildRow (xBase, xIncrement, y, Wall_Normal_Left, null, null, null, null, null, null, null, Wall_Normal_Right);
+//		y += yIncrement;
+//		BuildRow (xBase, xIncrement, y, Wall_Normal_Left, null, null, null, null, null, null, null, Concave_Up_Right);
+//		y += yIncrement;
+//		BuildRow (xBase, xIncrement, y, Wall_Normal_Left, null, null, null, null, null, null, null, null);
 
 	}
 
@@ -261,8 +268,8 @@ public class PlayerController : MonoBehaviour {
 			//			cameraBoundary.zMin = ((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;
 			//			cameraBoundary.zMax = ((levelObject.transform.lossyScale.y/2) + (Camera.main.orthographicSize/2)) * CameraBorder;
 			
-			cameraBoundary.xMin = -17; //((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
-			cameraBoundary.xMax = 17; //((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
+			cameraBoundary.xMin = -9f; //((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
+			cameraBoundary.xMax = 8.5f; //((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
 
 			// Calmera no longer moves backwards. Player can move back a bit, but they can't go south beyond camera.
 			cameraBoundary.zMin = yStop;//((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;
