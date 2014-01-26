@@ -1,12 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="215" Column="31" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="234" Column="9" />
       <File FileName="Assets/Scripts/DestroyByVisibility.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="391" Column="1" />
       <File FileName="Assets/Scripts/DestroyByContact.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Attack.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Rotate.cs" Line="15" Column="63" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

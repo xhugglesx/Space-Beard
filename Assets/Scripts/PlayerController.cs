@@ -383,6 +383,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 spawnPosition = new Vector3 (Random.Range (xMin, xMax), 0, z);
 		Quaternion spawnRotation = Quaternion.identity;
 		Instantiate (enemy, spawnPosition, spawnRotation);
+		enemy.animation.Play("Roboting");
 
 		// Remember where we last spawned an enemy, so that we can calculate when to spawn more
 		lastYSpawn = z;
