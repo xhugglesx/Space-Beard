@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Start()
 	{
-		SpawnEnemy ();
+		//SpawnEnemy ();
 
 //		GenerateLevel ();
 //		RenderLevel ();
@@ -212,6 +212,7 @@ public class PlayerController : MonoBehaviour {
 			nextSwing = Time.time + swingRate;
 			Instantiate(axeSwing, axeSpawn.position, axeSpawn.rotation);
 
+			animation.Stop ("Walking");
 			animation.Play("Swing");
 
 			AudioSource[] audioSources = GetComponents<AudioSource>();
@@ -224,9 +225,20 @@ public class PlayerController : MonoBehaviour {
 		// Movement code. Arrow keys or WASD work
 		float moveHorizontal = Input.GetAxisRaw("Horizontal");
 		float moveVertical = Input.GetAxisRaw("Vertical");
-		
+
 		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 		rigidbody.velocity = movement * speed;
+
+		if ((rigidbody.velocity.x != 0) || (rigidbody.velocity.z != 0))
+		{
+			if (!animation["Swing"].enabled)
+				animation.Play("Walking");
+		}
+		else
+		{
+			animation.Stop ("Walking");
+		}
+		
 
 		// Rotate code based on mouse position
 
