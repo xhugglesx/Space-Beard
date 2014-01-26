@@ -22,9 +22,23 @@ public class PlayerController : MonoBehaviour {
 	public GameObject obstruction;
 	public float enemyFrequency;
 
+	// Modular Environmental Blocks
+	public GameObject Convex_Down_Left;
+	public GameObject Convex_Down_Right;
+	public GameObject Convex_Up_Left;
+	public GameObject Convex_Up_Right;
+	public GameObject Concave_Down_Left;
+	public GameObject Concave_Down_Right;
+	public GameObject Concave_Up_Left;
+	public GameObject Concave_Up_Right;
+	public GameObject Wall_Normal_Down;
+	public GameObject Wall_Normal_Left;
+	public GameObject Wall_Normal_Right;
+	public GameObject Wall_Normal_Up;
+
 	// Procedurally generated level related variables
 	private int blockRowCount = 80;
-	private bool[][] blocks = new bool[80][];
+	private int[][] blocks = new int[80][];
 	private int currentBlockIndex = 0;
 
 	[System.Serializable]
@@ -37,34 +51,123 @@ public class PlayerController : MonoBehaviour {
 	{
 		SpawnEnemy ();
 
-		GenerateLevel ();
+//		GenerateLevel ();
 		RenderLevel ();
 	}
 
-	void GenerateLevel ()
-	{
-		// Our first row is a wall, so all true
-		AddRow (true, true, true);
-		AddRow (false, false, false);
-		AddRow (false, false, true);
-		AddRow (false, false, true);
-		AddRow (false, true, true);
-		AddRow (false, false, false);
-		AddRow (true, true, false);
-		AddRow (true, false, false);
-	}
+//	This would have been great, but not goint to happen
+//	void GenerateLevel ()
+//	{
+//		// 0 = Wall
+//		// 1 = Space
+//		// 2 = Column
+//		// 3 = Enemy
+//		// Our first row is a wall, so all true
+//		AddRow (0, 0, 0);
+//		AddRow (1, 1, 1);
+//		AddRow (1, 1, 0);
+//		AddRow (1, 1, 0);
+//		AddRow (1, 0, 0);
+//		AddRow (1, 1, 1);
+//		AddRow (0, 0, 1);
+//		AddRow (0, 1, 1);
+//	}
 
 	void RenderLevel()
 	{
-		for (int ii = 0; ii < 8; ii++)
+//		int piece;
+//		int up;
+//		int left;
+//		int right;
+//		int down;
+//		for (int ii = 0; ii < 8; ii++)
+//		{
+//			// Default to walls
+//			piece = 0;
+//			up = 0;
+//			left = 0;
+//			right = 0;
+//			down = 0;
+//
+//
+//		}
+	
+		float xBase = -32.05f;
+		float yBase = -2.05f;
+		float xIncrement = 5.905f;
+		float yIncrement = 5.905f;
+	
+		//HARD CODE EVERYTHING
+
+		float y = yBase;
+		BuildRow (xBase, xIncrement, y, Concave_Down_Left, null, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, Wall_Normal_Down, null, Concave_Down_Right);
+		y += yIncrement;
+		y += yIncrement;
+		BuildRow (xBase, xIncrement, y, Wall_Normal_Left, null, null, null, null, null, null, null, Wall_Normal_Right);
+//		y += yIncrement;
+
+	}
+
+	//HARD CODE EVERYTHING
+	void BuildRow(float xBase, float xIncrement, float y, GameObject go1, GameObject go2, GameObject go3, GameObject go4, GameObject go5, GameObject go6, GameObject go7, GameObject go8, GameObject go9)
+	{
+		float x = xBase;
+		InstantiateBlock (go1, x, y);
+
+		x += xIncrement;
+		InstantiateBlock (go2, x, y);
+
+		x += xIncrement;
+		InstantiateBlock (go3, x, y);
+
+		x += xIncrement;
+		InstantiateBlock (go4, x, y);
+		
+		x += xIncrement;
+		InstantiateBlock (go5, x, y);
+		
+		x += xIncrement;
+		InstantiateBlock (go6, x, y);
+		
+		x += xIncrement;
+		InstantiateBlock (go7, x, y);
+		
+		x += xIncrement;
+		InstantiateBlock (go8, x, y);
+		
+		x += xIncrement;
+		InstantiateBlock (go9, x, y);
+	}
+
+	void InstantiateBlock(GameObject go, float x, float y)
+	{
+		if (go == null)
+			return;
+		Vector3 spawnPosition = new Vector3 (x, go.transform.position.y, y);
+		Instantiate (go, spawnPosition, go.transform.rotation);
+	}
+
+	// Look at all the surrounding pieces to determine the correct piece to use
+	// Eff this. Way harder than I thought
+	GameObject DetermineEnvironmentalPiece(int center, int up, int left, int right, int down)
+	{
+		GameObject go = null;
+
+		if (center == 0) 
+		{
+			//this is a wall
+		} 
+		else 
 		{
 
 		}
+
+		return go;
 	}
 
-	void AddRow(bool left, bool middle, bool right)
+	void AddRow(int left, int middle, int right)
 	{
-		blocks[currentBlockIndex] = new bool[] { true, left, middle, right, true };
+		blocks[currentBlockIndex] = new int[] { 0, left, middle, right, 0 };
 		currentBlockIndex++;
 	}
 
