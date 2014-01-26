@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 	private float nextSwing = 0.0F;
 	// This will be the value to track forward movement and prevent the user from backtracking
 	private float yStop = 0.0f;
+	// Last yStop value that spawned an enemy
+	private float lastYSpawn;
 
 	public GameObject enemy;
 	public GameObject obstruction;
@@ -29,8 +31,7 @@ public class PlayerController : MonoBehaviour {
 	void Start()
 	{
 		SpawnEnemy ();
-		SpawnEnemy ();
-		
+
 	}
 
 	void Update() {
@@ -152,7 +153,9 @@ public class PlayerController : MonoBehaviour {
 
 			debugText.text += "Velocity" + rigidbody.velocity + "\n";
 
-			
+			// Periodically spawn new enemies
+			if ((lastYSpawn + enemyFrequency) < yStop)
+				SpawnEnemy();
 		}
 		else
 		{
@@ -183,6 +186,8 @@ public class PlayerController : MonoBehaviour {
 		Quaternion spawnRotation = Quaternion.identity;
 		Instantiate (enemy, spawnPosition, spawnRotation);
 
+		// Remember where we last spawned an enemy, so that we can calculate when to spawn more
+		lastYSpawn = z;
 	}
 	
 }
