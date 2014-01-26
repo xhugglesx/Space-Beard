@@ -40,4 +40,5 @@
 'Assets/Scripts/Attack.cs'
 'Assets/Scripts/DestroyByContact.cs'
 'Assets/Scripts/DestroyByTime.cs'
+'Assets/Scripts/DestroyByVisibility.cs'
 'Assets/Scripts/PlayerController.cs'
