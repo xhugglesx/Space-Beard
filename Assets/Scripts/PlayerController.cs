@@ -52,9 +52,31 @@ public class PlayerController : MonoBehaviour {
 		SpawnEnemy ();
 
 //		GenerateLevel ();
-		RenderLevel ();
+//		RenderLevel ();
+		BuildInfiniteLevel ();
 
 		//Camera.main.orthographicSize = 50f;
+	}
+
+	void BuildInfiniteLevel ()
+	{
+		float xLeft = -22.31733f;
+		float xRight = 27.93619f;
+		float yBase = 113;
+		float yIncrement = 5.905f;
+		float y = yBase;
+		Vector3 spawnPosition;
+		for (int ii = 0; ii < 100; ii++)
+		{
+			spawnPosition = new Vector3 (xLeft, Wall_Normal_Left.transform.position.y, y);
+			Instantiate (Wall_Normal_Left, spawnPosition, Wall_Normal_Left.transform.rotation);
+
+			spawnPosition = new Vector3 (xRight, Wall_Normal_Right.transform.position.y, y);
+			Instantiate (Wall_Normal_Right, spawnPosition, Wall_Normal_Right.transform.rotation);
+
+			y += yIncrement;
+		}
+
 	}
 
 //	This would have been great, but not goint to happen
@@ -269,7 +291,7 @@ public class PlayerController : MonoBehaviour {
 			//			cameraBoundary.zMax = ((levelObject.transform.lossyScale.y/2) + (Camera.main.orthographicSize/2)) * CameraBorder;
 			
 			cameraBoundary.xMin = -9f; //((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
-			cameraBoundary.xMax = 8.5f; //((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
+			cameraBoundary.xMax = 15f; //((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
 
 			// Calmera no longer moves backwards. Player can move back a bit, but they can't go south beyond camera.
 			cameraBoundary.zMin = yStop;//((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;
