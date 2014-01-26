@@ -22,6 +22,11 @@ public class PlayerController : MonoBehaviour {
 	public GameObject obstruction;
 	public float enemyFrequency;
 
+	// Procedurally generated level related variables
+	private int blockRowCount = 80;
+	private bool[][] blocks = new bool[80][];
+	private int currentBlockIndex = 0;
+
 	[System.Serializable]
 	public class Boundary
 	{
@@ -32,7 +37,37 @@ public class PlayerController : MonoBehaviour {
 	{
 		SpawnEnemy ();
 
+		GenerateLevel ();
+		RenderLevel ();
 	}
+
+	void GenerateLevel ()
+	{
+		// Our first row is a wall, so all true
+		AddRow (true, true, true);
+		AddRow (false, false, false);
+		AddRow (false, false, true);
+		AddRow (false, false, true);
+		AddRow (false, true, true);
+		AddRow (false, false, false);
+		AddRow (true, true, false);
+		AddRow (true, false, false);
+	}
+
+	void RenderLevel()
+	{
+		for (int ii = 0; ii < 8; ii++)
+		{
+
+		}
+	}
+
+	void AddRow(bool left, bool middle, bool right)
+	{
+		blocks[currentBlockIndex] = new bool[] { true, left, middle, right, true };
+		currentBlockIndex++;
+	}
+
 
 	void Update() {
 		bool swingPress = Input.GetButton ("Fire1") || Input.GetKey (KeyCode.Space);
@@ -123,8 +158,8 @@ public class PlayerController : MonoBehaviour {
 			//			cameraBoundary.zMin = ((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;
 			//			cameraBoundary.zMax = ((levelObject.transform.lossyScale.y/2) + (Camera.main.orthographicSize/2)) * CameraBorder;
 			
-			cameraBoundary.xMin = ((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
-			cameraBoundary.xMax = ((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
+			cameraBoundary.xMin = -17; //((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
+			cameraBoundary.xMax = 17; //((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
 
 			// Calmera no longer moves backwards. Player can move back a bit, but they can't go south beyond camera.
 			cameraBoundary.zMin = yStop;//((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;

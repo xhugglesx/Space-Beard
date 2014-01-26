@@ -26,12 +26,14 @@ public class DestroyByContact : MonoBehaviour {
 		if (other.tag == "Enemy") 
 		{
 			Instantiate (enemyExplosion, other.transform.position, other.transform.rotation);
+			other.audio.Play();
 			Destroy (other.gameObject);
 		}
 		
 		if (other.tag == "Obstruction") 
 		{
 			Instantiate (obstructionExplosion, transform.position, transform.rotation);
+			other.audio.Play();
 			Destroy (other.gameObject);
 		}
 
