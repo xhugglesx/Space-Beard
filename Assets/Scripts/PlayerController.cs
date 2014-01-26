@@ -25,7 +25,14 @@ public class PlayerController : MonoBehaviour {
 	{
 		public float xMin, xMax, zMin, zMax;
 	}
-	
+
+	void Start()
+	{
+		SpawnEnemy ();
+		SpawnEnemy ();
+		
+	}
+
 	void Update() {
 		bool swingPress = Input.GetButton ("Fire1") || Input.GetKey (KeyCode.Space);
 		if (swingPress && Time.time > nextSwing) {
@@ -78,6 +85,7 @@ public class PlayerController : MonoBehaviour {
 		GameObject levelObject = GameObject.FindWithTag ("Level");
 		if (levelObject != null) 
 		{
+
 			Boundary playerBoundary = new Boundary();
 
 			//TODO - This logic only works because the quad is centered on origin (0,0)
@@ -162,7 +170,19 @@ public class PlayerController : MonoBehaviour {
 				audio.Play();
 			}
 		}
-
 	}
 
+	void SpawnEnemy()
+	{
+		GameObject levelObject = GameObject.FindWithTag ("Level");
+		float xMin = levelObject.transform.lossyScale.x/2*-1 + BoundaryBuffer;
+		float xMax = levelObject.transform.lossyScale.x/2 - BoundaryBuffer;
+
+		float z = Camera.main.transform.position.z + (Camera.main.orthographicSize / 2) + 12;
+		Vector3 spawnPosition = new Vector3 (Random.Range (xMin, xMax), 0, z);
+		Quaternion spawnRotation = Quaternion.identity;
+		Instantiate (enemy, spawnPosition, spawnRotation);
+
+	}
+	
 }
