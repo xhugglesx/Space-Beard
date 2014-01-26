@@ -9,7 +9,7 @@ public class Attack : MonoBehaviour {
 
 	void Start()
 	{
-		rigidbody.velocity = transform.forward * speed;
+		//rigidbody.velocity = transform.forward * speed;
 	}
 
 

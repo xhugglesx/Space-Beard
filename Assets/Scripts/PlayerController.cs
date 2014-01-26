@@ -56,11 +56,16 @@ public class PlayerController : MonoBehaviour {
 		BuildInfiniteLevel ();
 
 		//Camera.main.orthographicSize = 50f;
+
+		AudioSource[] audioSources = GetComponents<AudioSource>();
+		audioSources [2].loop = true;
+		audioSources[2].Play();
+
 	}
 
 	void BuildInfiniteLevel ()
 	{
-		float xLeft = -22.31733f;
+		float xLeft = -4.767797f;
 		float xRight = 27.93619f;
 		float yBase = 113;
 		float yIncrement = 5.905f;
@@ -207,6 +212,8 @@ public class PlayerController : MonoBehaviour {
 			nextSwing = Time.time + swingRate;
 			Instantiate(axeSwing, axeSpawn.position, axeSpawn.rotation);
 
+			animation.Play("Swing");
+
 			AudioSource[] audioSources = GetComponents<AudioSource>();
 			audioSources[1].Play();
 		}
@@ -293,6 +300,15 @@ public class PlayerController : MonoBehaviour {
 			cameraBoundary.xMin = -9f; //((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
 			cameraBoundary.xMax = 15f; //((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
 
+			// If we're in the infinite hall, shrink the camera bounds
+			if(playerPos.y > 114)
+			{
+				if (Camera.main.transform.position.z > 8f)
+					cameraBoundary.xMin = 8f; //((levelObject.transform.lossyScale.x/2*-1) + (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
+				if (Camera.main.transform.position.z < 14.5f)
+					cameraBoundary.xMax = 14.5f; //((levelObject.transform.lossyScale.x/2) - (Camera.main.orthographicSize/2*aspectRatio)) * CameraBorder/aspectRatio;
+			}
+
 			// Calmera no longer moves backwards. Player can move back a bit, but they can't go south beyond camera.
 			cameraBoundary.zMin = yStop;//((levelObject.transform.lossyScale.y/2*-1) - (Camera.main.orthographicSize/2)) * CameraBorder;
 			cameraBoundary.zMax = 1000;//((levelObject.transform.lossyScale.y/2) + (Camera.main.orthographicSize/2)) * CameraBorder;
@@ -320,9 +336,12 @@ public class PlayerController : MonoBehaviour {
 
 			debugText.text += "Velocity" + rigidbody.velocity + "\n";
 
-			// Periodically spawn new enemies
-			if ((lastYSpawn + enemyFrequency) < yStop)
-				SpawnEnemy();
+			if (currentYPos > 110)
+			{
+				// Periodically spawn new enemies
+				if ((lastYSpawn + enemyFrequency) < yStop)
+					SpawnEnemy();
+			}
 		}
 		else
 		{
@@ -345,8 +364,8 @@ public class PlayerController : MonoBehaviour {
 	void SpawnEnemy()
 	{
 		GameObject levelObject = GameObject.FindWithTag ("Level");
-		float xMin = levelObject.transform.lossyScale.x/2*-1 + BoundaryBuffer;
-		float xMax = levelObject.transform.lossyScale.x/2 - BoundaryBuffer;
+		float xMin = -1.2f;//levelObject.transform.lossyScale.x/2*-1 + BoundaryBuffer;
+		float xMax = 23f;//levelObject.transform.lossyScale.x/2 - BoundaryBuffer;
 
 		float z = Camera.main.transform.position.z + (Camera.main.orthographicSize / 2) + 12;
 		Vector3 spawnPosition = new Vector3 (Random.Range (xMin, xMax), 0, z);
