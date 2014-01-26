@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed;
 	public GUIText debugText;
+	public GUIText playerText;
+	public GUIText mcText;
 	public float BoundaryBuffer;
 	public float CameraBorder;
 
@@ -60,6 +62,8 @@ public class PlayerController : MonoBehaviour {
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		audioSources [2].loop = true;
 		audioSources[2].Play();
+
+		SetGameText ("Torka to mission control i have landed in the designated mine shaft awaiting further instructions.", "Copy that agent Torka, your mission is to gain access to the mine's control room. You \nmay encounter\"hostiles\" allong the way, dispose of them if necessary.");
 
 	}
 
@@ -354,6 +358,15 @@ public class PlayerController : MonoBehaviour {
 				if ((lastYSpawn + enemyFrequency) < yStop)
 					SpawnEnemy();
 			}
+
+			if (currentYPos > 92)
+			{
+				SetGameText("", "");
+			}
+			if (currentYPos > 120)
+			{
+				SetGameText("I have the \"hostiles\" on the running scared sir.", "Agent torka, those were life support droids! What have you done!?!");
+			}
 		}
 		else
 		{
@@ -383,10 +396,18 @@ public class PlayerController : MonoBehaviour {
 		Vector3 spawnPosition = new Vector3 (Random.Range (xMin, xMax), 0, z);
 		Quaternion spawnRotation = Quaternion.identity;
 		Instantiate (enemy, spawnPosition, spawnRotation);
-		enemy.animation.Play("Roboting");
+
 
 		// Remember where we last spawned an enemy, so that we can calculate when to spawn more
 		lastYSpawn = z;
+	}
+
+	void SetGameText(string playerMessage, string mcMessage)
+	{
+		playerText.enabled = playerMessage != "";
+		playerText.text = playerMessage;
+		mcText.enabled = mcMessage != "";
+		mcText.text = mcMessage;
 	}
 	
 }
