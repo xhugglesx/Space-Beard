@@ -16,13 +16,16 @@ public class PlayerController : MonoBehaviour {
 	// This will be the value to track forward movement and prevent the user from backtracking
 	private float yStop = 0.0f;
 
+	public GameObject enemy;
+	public GameObject obstruction;
+	public float enemyFrequency;
+
 	[System.Serializable]
 	public class Boundary
 	{
 		public float xMin, xMax, zMin, zMax;
 	}
-
-
+	
 	void Update() {
 		bool swingPress = Input.GetButton ("Fire1") || Input.GetKey (KeyCode.Space);
 		if (swingPress && Time.time > nextSwing) {
